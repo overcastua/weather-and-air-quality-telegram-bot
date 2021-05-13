@@ -68,3 +68,4 @@ module.exports.send_weather_notifications = send_weather_notifications
 module.exports.send_elems_notifications = send_elems_notifications
 module.exports.display_weather = display_weather
 module.exports.display_elems = display_elems
+module.exports.save_data_to_db = save_data_to_db

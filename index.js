@@ -2,7 +2,7 @@ const {bot_token} = require('./private')
 const { Telegraf } = require('telegraf')
 const {db_connection, save_user_chat_id, update_elements_subscription_status, update_weather_subscription_status} = require('./database_operations')
 const {fetch_chart1_data, fetch_chart2_data, chartSend, get_only_month} = require('./charts')
-const {schedule_a_notification, display_elems, display_weather} = require('./notifications')
+const {schedule_a_notification, display_elems, display_weather, save_data_to_db} = require('./notifications')
 const {weather, elements} = require('./data')
 
 const bot = new Telegraf(bot_token)
@@ -39,15 +39,15 @@ bot.on('message', async (ctx) => {
         await chartSend(ctx, get_only_month(), await fetch_chart1_data(), 1)
         await chartSend(ctx, get_only_month(), await fetch_chart2_data(), 2)
     } else if (ctx.message.text === 'Розшифровка показників') {
-        ctx.reply('Функція ще не реалізована.')
+        ctx.reply('Гранично допустимі значення в атмосферному повітрі: \nДіоксид сірки - 50 мкг/м3,\nДіоксид азоту - 85 мкг/м3 \nОзон - 160 мкг/м3 \nЧадний газ - 150 мкг/м3 \nPM 2.5 - 25 мкг/3 \nPM 10 - 5 мкг/3.')
     } else if (ctx.message.text === 'Загальна інформація про бота') {
+        ctx.reply('Бот був розроблений студентом 121 спеціальності 4 курсу ФПМ КПІ ім. Сікорського спеціально для дипломного проєкту.')
     }  
 })
 
 
 schedule_a_notification("0 18 * * *", bot)
 schedule_a_notification("0 8 * * *", bot)
-schedule_a_notification("23 18 * * *", bot)
 
 
 db_connection()

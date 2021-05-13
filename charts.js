@@ -88,10 +88,10 @@ function fetch_chart2_data(){
                 chartOptions.xAxis.categories.push(get_day(doc.date))
             }))
             chartOptions.series.push({ name: 'діоксид сірки', data: so2_data });
-            chartOptions.series.push({ name: 'оксид азоту', data: no2_data });
+            chartOptions.series.push({ name: 'діоксид азоту', data: no2_data });
             chartOptions.series.push({ name: 'PM 2.5', data: pm2p5_data });
             chartOptions.series.push({ name: 'PM 10', data: pm10_data });
-            chartOptions.yAxis.tickInterval = 1
+            chartOptions.yAxis.tickInterval = 0.1
             resolve(chartOptions)
     })
 }
@@ -117,6 +117,7 @@ async function chartSend(ctx, month, opt, number_of_chart) {
                 }
                 catch (e) {
                     console.log(e);
+                    reject()
                 }
             })
     }).then(() => {
